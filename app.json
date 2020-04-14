@@ -1,6 +1,13 @@
 {
-  "name": "Node.js Socket.io Example",
-  "description": "Part of the Using WebSockets on Heroku Tutorial",
-  "repository": "https://github.com/heroku-examples/node-socket.io",
-  "keywords": ["node", "websocket", "socket.io"]
+  "name": "ev3-api-bridge",
+  "description": "WebSockets API bridge for EV3",
+  "repository": "https://github.com/jensfischer1515/ev3-api-bridge",
+  "keywords": [
+    "LEGO",
+    "Mindstorms",
+    "EV3",
+    "websockets",
+    "api",
+    "bridge"
+  ]
 }

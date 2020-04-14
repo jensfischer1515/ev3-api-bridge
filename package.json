@@ -1,17 +1,25 @@
 {
-  "name": "websockets-socket.io",
+  "name": "ev3-api-bridge",
   "version": "1.0.0",
+  "description": "WebSockets API bridge for EV3",
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "LEGO",
+    "Mindstorms",
+    "EV3",
+    "websockets",
+    "api",
+    "bridge"
+  ],
+  "author": "Jens Fischer <soth@gmx.net",
+  "license": "MIT",
+  "homepage": "https://github.com/jensfischer1515/ev3-api-bridge",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^2.3.0"
