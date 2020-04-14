@@ -3,7 +3,10 @@
 const restify = require('restify');
 const socketio = require('socket.io');
 
-const server = restify.createServer();
+const server = restify.createServer({  
+  name: 'ev3-api-bridge',
+  version: '1.0.0'
+});
 const io = socketio.listen(server.server);
 
 // WebSockets
@@ -11,6 +14,9 @@ io.sockets.on('connection', (socket) => {
   console.log("Client '%s' connected to '%s' with id '%s'", socket.client.conn.remoteAddress, socket.handshake.address, socket.id);
   socket.on('disconnect', (reason) => console.log("Client disconnected: %s", reason));
 });
+
+
+server.use(restify.plugins.bodyParser({ mapParams: false }));
 
 // serving static HTML
 server.get('/', restify.plugins.serveStatic({
@@ -21,9 +27,13 @@ server.get('/', restify.plugins.serveStatic({
 // REST endpoints
 server.post('/:event/:arg', (req, res, next) => {
   let event = req.params.event;
-  let arg = req.params.arg;
-  console.log("Emitting WebSocket event '%s' with arg '%s'", event, arg);
-  io.sockets.emit(event, arg);
+  let payload = {
+    event: event,
+    arg: req.params.arg
+  };
+  if (req.body) payload["data"] = req.body
+  console.log("Emitting WebSocket event '%s' with payload '%s'", event, JSON.stringify(payload));
+  io.sockets.emit(event, payload);
   res.send(202);
   next();
 });
