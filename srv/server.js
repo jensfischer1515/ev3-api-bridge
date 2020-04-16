@@ -10,7 +10,7 @@ const server = restify.createServer({
 const io = socketio.listen(server.server);
 
 // WebSockets
-io.sockets.on('connection', (socket) => {
+io.on('connection', (socket) => {
   console.log("Client '%s' connected to '%s' with id '%s'", socket.client.conn.remoteAddress, socket.handshake.address, socket.id);
   socket.on('disconnect', (reason) => console.log("Client disconnected: %s", reason));
 });
@@ -33,7 +33,7 @@ server.post('/:event/:arg', (req, res, next) => {
   };
   if (req.body) payload["data"] = req.body
   console.log("Emitting WebSocket event '%s' with payload '%s'", event, JSON.stringify(payload));
-  io.sockets.emit(event, payload);
+  io.emit(event, payload);
   res.send(202);
   next();
 });
@@ -44,4 +44,4 @@ server.listen(process.env.PORT || 3000, () => {
 });
 
 // periodically emit websocket events
-setInterval(() => io.sockets.emit('time', new Date().toTimeString()), 1000);
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
