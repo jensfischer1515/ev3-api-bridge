@@ -11,7 +11,8 @@ const io = socketio.listen(server.server);
 
 // WebSockets
 io.on('connection', (socket) => {
-  console.log("Client '%s' with session id '%s'", socket.client.conn.remoteAddress, socket.id);
+  let userAgent = socket.handshake.headers['UserAgent'];
+  console.log("Client '%s' @ '%s' with session id '%s'", userAgent, socket.client.conn.remoteAddress, socket.id);
   socket.on('disconnect', (reason) => console.log("Client disconnected: %s", reason));
 });
 
