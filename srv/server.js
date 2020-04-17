@@ -11,10 +11,9 @@ const io = socketio.listen(server.server);
 
 // WebSockets
 io.on('connection', (socket) => {
-  console.log("Client '%s' connected to '%s' with id '%s'", socket.client.conn.remoteAddress, socket.handshake.address, socket.id);
+  console.log("Client '%s' with session id '%s'", socket.client.conn.remoteAddress, socket.id);
   socket.on('disconnect', (reason) => console.log("Client disconnected: %s", reason));
 });
-
 
 server.use(restify.plugins.bodyParser({ mapParams: false }));
 
@@ -25,13 +24,14 @@ server.get('/', restify.plugins.serveStatic({
 }))
 
 // REST endpoints
-server.post('/:event/:arg', (req, res, next) => {
+server.post('/:event/:action/:subaction', (req, res, next) => {
   let event = req.params.event;
   let payload = {
     event: event,
-    arg: req.params.arg
+    action: req.params.action,
+    subaction: req.params.subaction
   };
-  if (req.body) payload["data"] = req.body
+  if (req.body) payload['data'] = req.body
   console.log("Emitting WebSocket event '%s' with payload '%s'", event, JSON.stringify(payload));
   io.emit(event, payload);
   res.send(202);
