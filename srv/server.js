@@ -44,4 +44,4 @@ server.listen(process.env.PORT || 3000, () => {
 });
 
 // periodically emit websocket events
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+setInterval(() => io.emit('time', { date: new Date().toTimeString()}), 1000);
