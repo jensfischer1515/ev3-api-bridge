@@ -13,6 +13,12 @@ const io = socketio.listen(server.server);
 io.on('connection', (socket) => {
   let userAgent = socket.handshake.headers['UserAgent'];
   console.log("Client '%s' @ '%s' with session id '%s'", userAgent, socket.client.conn.remoteAddress, socket.id);
+
+  socket.on('ping', (data) => {
+    console.log("ping", data);
+    socket.emit("pong", data.toString());
+  });
+
   socket.on('disconnect', (reason) => console.log("Client disconnected: %s", reason));
 });
 
