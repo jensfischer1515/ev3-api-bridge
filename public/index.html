@@ -5,9 +5,9 @@
       let socket = io();
       let el;
 
-      socket.on('time', (timeString) => {
+      socket.on('time', (time) => {
         el = document.getElementById('server-time');
-        el.innerHTML = 'Server time: ' + timeString;
+        el.innerHTML = 'Server time: ' + JSON.stringify(time);
       });
     </script>
   </head>
