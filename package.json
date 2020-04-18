@@ -22,6 +22,6 @@
   "homepage": "https://github.com/jensfischer1515/ev3-api-bridge",
   "dependencies": {
     "restify": "^8.5.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "1.7.4"
   }
 }

@@ -11,7 +11,7 @@ const io = socketio.listen(server.server);
 
 // WebSockets
 io.on('connection', (socket) => {
-  let userAgent = socket.handshake.headers['UserAgent'];
+  let userAgent = socket.handshake.headers['user-agent'];
   console.log("Client '%s' @ '%s' with session id '%s'", userAgent, socket.client.conn.remoteAddress, socket.id);
 
   socket.on('ping', (data) => {
